@@ -1,0 +1,35 @@
+int main()
+{
+    float a1, a2, b1, b2, c1, c2;
+    float x, y;
+    // a1x + b1y = c1
+    // a2x + b2y = c2
+
+    printf("Please input the required coefficients for the first linear equation (a1,b1,c1):\n");
+    scanf("%f",&a1);
+    scanf("%f",&b1);
+    scanf("%f",&c1);
+
+    printf("The first equation you created: (%fx)+(%fy)=%f \n",a1,b1,c1);
+
+    printf("\nPlease input the required coefficients for the second linear equation (a2,b2,c2):\n");
+    scanf("%f",&a2);
+    scanf("%f",&b2);
+    scanf("%f",&c2);
+
+    printf("The second equation you created: (%fx)+(%fy)=%f \n",a2,b2,c2);
+
+
+    x = ( (c2*b1) - (c1*b2) )/( (b1*a2)-(b2*a1)  );
+    y = ((c1*b2)-(a1*b2*x))/(b2*b1);
+
+    float eq1 = (a1*x)+(b1*y);
+    float eq2 = (a2*x)+(b2*y);
+
+
+    printf("\neq1=%f , eq2=%f",eq1,eq2);
+
+    printf("\nx=%f , y=%f",x,y);
+
+    return 0;
+}
