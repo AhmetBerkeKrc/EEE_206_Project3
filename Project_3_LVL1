@@ -33,3 +33,263 @@ int main()
 
     return 0;
 }
+--------------------------------------------------------------------------------------------------------------------
+int main(int argc, char *argv[]) {
+	
+
+	// We name the variables for the equations:
+	// a1x+b1y+c1z=d1
+	// a2x+b2y+c2z=d2
+	// a3x+b3y+c3z=d3
+	
+	// We also need two sub equations to solve a three varible equations:
+	// s_a1x+s_b1y=s_c1
+	// s_a2x+s_b2y=s_c2
+
+	float a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3;
+	float s_a1, s_b1, s_c1, s_a2, s_b2, s_c2;
+	float x, y, z;
+	
+	
+	// In order to build our code we will scan the equation that is located in the first line of the txt file.
+	// That's why we need to scan our file and obtain the coefficients for the first equation.
+	
+	FILE * fp;
+	
+	fp = fopen("C:\\Users\\DELL\\OneDrive\\Masaüstü\\Çalışmalar\\Eq_1_2.txt","r");
+	
+	fseek(fp,0,SEEK_SET);
+	
+	fscanf(fp,"%f",&a1);
+	fseek(fp,1,SEEK_CUR);
+	fscanf(fp,"%f",&b1);
+	fseek(fp,1,SEEK_CUR);
+	fscanf(fp,"%f",&c1);
+	fseek(fp,2,SEEK_CUR);
+	fscanf(fp,"%f",&d1);
+	
+	// After obtaining our coefficients and thus our first equation, we will move on to the solution.
+	// Our code is capable to solve two and three variable linear equations.
+	// So, by checking the coefficients of the first equation, we will determine if the equations have two or three variables.
+	
+	
+	
+	// If the any coefficient of the variables is 0, the system is a two variable one.
+	// And, the following code (the one belove the if statement that check the if any coefficient is 0) solves all the possible two variable equations.
+	if (a1==0 || b1==0 || c1==0){
+		// The if statement for the equations:
+		// a1x+b1y = d1
+		// a2x+b2y = d2
+		if(c1==0) {
+		
+			// Scanning the Second Equation
+			fseek(fp,1,SEEK_CUR);
+	
+			fscanf(fp,"%f",&a2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&b2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&c2);
+			fseek(fp,2,SEEK_CUR);
+			fscanf(fp,"%f",&d2);
+			
+			if( a1/a2 != b1/b2 ) {
+			// Printing the Equations
+			printf("\n\na1=%f",a1);
+			printf("\nb1=%f",b1);
+			printf("\nd1=%f",d1);
+			
+	
+			printf("\n\na2=%f",a2);
+			printf("\nb2=%f",b2);
+			printf("\nd2=%f",d2);
+			
+			printf("\n\nThe first Equation is (%fx)+(%fy)=%f",a1,b1,d1);
+			printf("\n\nThe Second Equation is (%fx)+(%fy)=%f",a2,b2,d2);
+			
+			// Printing the Resuls
+			x = ( (d2*b1) - (d1*b2) )/( (b1*a2)-(b2*a1)  );
+    		y = ((d1*b2)-(a1*b2*x))/(b2*b1);
+    		
+    		printf("\n\nThe Resutls: x = %f , y = %f",x,y);
+    		
+			}
+			
+			if( a1/a2 == b1/b2 && a1/a2 == d1/d2 ) {
+				
+			printf("Infinitely Many Solutions...");
+			
+			}
+			
+			if( a1/a2 == b1/b2 && a1/a2 != d1/d2 ) {
+				
+			printf("No Solution...");
+			
+			}
+		}
+		
+		
+		// The if statement for the equations:
+		// a1x+c1z = d1
+		// a2x+c2z = d2
+		if(b1==0) {
+			
+			
+			
+			// Scanning the Second Equation
+			fseek(fp,1,SEEK_CUR);
+	
+			fscanf(fp,"%f",&a2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&b2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&c2);
+			fseek(fp,2,SEEK_CUR);
+			fscanf(fp,"%f",&d2);
+			
+			if( a1/a2 != c1/c2 ) {
+			// Printing the Equations
+			printf("\n\na1=%f",a1);
+			printf("\nc1=%f",c1);
+			printf("\nd1=%f",d1);
+			
+	
+			printf("\n\na2=%f",a2);
+			printf("\nc2=%f",c2);
+			printf("\nd2=%f",d2);
+			
+			printf("\n\nThe first Equation is (%fx)+(%fz)=%f",a1,c1,d1);
+			printf("\n\nThe Second Equation is (%fx)+(%fz)=%f",a2,c2,d2);
+			
+			// Printing the Resuls
+			x = ( (d2*c1) - (d1*c2) )/( (c1*a2)-(c2*a1)  );
+    		z = ((d1*c2)-(a1*c2*x))/(c2*c1);
+    		
+    		printf("\n\nThe Resutls: x = %f , z = %f",x,z);
+		}
+		
+			if( a1/a2 == c1/c2 && a1/a2 == d1/d2 ) {
+				
+			printf("Infinitely Many Solutions...");
+			
+			}
+			
+			if( a1/a2 == c1/c2 && a1/a2 != d1/d2 ) {
+				
+			printf("No Solution...");
+			
+			}
+		
+		
+		}
+		
+		
+		
+		// The if statement for the equations:
+		// b1y+c1z = d1
+		// b2y+c2z = d2
+		if(a1==0) {
+			
+			
+			
+			// Scanning the Second Equation
+			fseek(fp,1,SEEK_CUR);
+	
+			fscanf(fp,"%f",&a2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&b2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&c2);
+			fseek(fp,2,SEEK_CUR);
+			fscanf(fp,"%f",&d2);
+			
+			if( b1/b2 != c1/c2 ) {
+			// Printing the Equations
+			printf("\n\na1=%f",b1);
+			printf("\nc1=%f",c1);
+			printf("\nd1=%f",d1);
+			
+	
+			printf("\n\na2=%f",b2);
+			printf("\nc2=%f",c2);
+			printf("\nd2=%f",d2);
+			
+			printf("\n\nThe first Equation is (%fy)+(%fz)=%f",b1,c1,d1);
+			printf("\n\nThe Second Equation is (%fy)+(%fz)=%f",b2,c2,d2);
+			
+			// Printing the Resuls
+			y = ( (d2*c1) - (d1*c2) )/( (c1*b2)-(c2*b1)  );
+    		z = ((d1*c2)-(b1*c2*y))/(c2*c1);
+    		
+    		printf("\n\nThe Resutls: y = %f , z = %f",y,z);
+			
+		}
+			if( b1/b2 == c1/c2 && b1/b2 == d1/d2 ) {
+				
+			printf("Infinitely Many Solutions...");
+			
+			}
+			
+			if( b1/b2 == c1/c2 && b1/b2 != d1/d2 ) {
+				
+			printf("No Solution...");
+			
+			}
+		}
+	}
+	
+	// If there is no 0 coefficient, the system is a three variable one.
+	// To be able to solve that, we will eliminate the coefficients of z and create sub equations.
+	else{
+		
+			// Scanning the second and third equations
+			fseek(fp,1,SEEK_CUR);
+	
+			fscanf(fp,"%f",&a2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&b2);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&c2);
+			fseek(fp,2,SEEK_CUR);
+			fscanf(fp,"%f",&d2);
+			
+			fseek(fp,1,SEEK_CUR);
+	
+			fscanf(fp,"%f",&a3);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&b3);
+			fseek(fp,1,SEEK_CUR);
+			fscanf(fp,"%f",&c3);
+			fseek(fp,2,SEEK_CUR);
+			fscanf(fp,"%f",&d3);
+			
+			printf("\n\nThe First Equation is (%fx)+(%fy)+(%fz)=%f",a1,b1,c1,d1);
+			printf("\n\nThe Second Equation is (%fx)+(%fy)+(%fz)=%f",a2,b2,c2,d2);
+			printf("\n\nThe Third Equation is (%fx)+(%fy)+(%fz)=%f",a3,b3,c3,d3);
+			
+			
+			// Creating the sub equations
+			s_a1 = (c1*a2)-(c2*a1);
+			s_b1 = (c1*b2)-(c2*b1);
+			s_c1 = (c1*d2)-(c2*d1);
+			
+			s_a2 = (c2*a3)-(c3*a2);
+			s_b2 = (c2*b3)-(c3*b2);
+			s_c2 = (c2*d3)-(c3*d2);
+			
+			
+			// Printing the Results
+			x = ( (s_c2*s_b1) - (s_c1*s_b2) )/( (s_b1*s_a2)-(s_b2*s_a1) );
+    		y = (s_c1-(s_a1*x))/s_b1;
+    		z = (d1-(a1*x)-(b1*y))/c1;
+			
+			printf("\n\nThe Resutls: x = %f , y = %f , z = %f",x,y,z);
+			
+	
+		
+			
+	}
+
+
+return 0;
+}
